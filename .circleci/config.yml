@@ -66,8 +66,8 @@ jobs:
           command: |
             # Your code here
             cd backend
-            npm install typescript -g
-            npm run build
+            #npm install typescript -g
+            sudo npm run build
             #exit 1
       - save_cache:
           paths: [backend/node_modules]
