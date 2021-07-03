@@ -135,7 +135,9 @@ jobs:
           name: Frontend scan
           command: |    
             cd frontend
+            npm i
             npm audit --audit-level=critical
+            #npm audit fix --audit-level=critical --force
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-scan
@@ -155,7 +157,9 @@ jobs:
           name: Backend scan
           command: |    
             cd backend
+            npm i
             npm audit --audit-level=critical
+            #npm audit fix --audit-level=critical --force
       - save_cache:
           paths: [backend/node_modules]
           key: backend-scan
