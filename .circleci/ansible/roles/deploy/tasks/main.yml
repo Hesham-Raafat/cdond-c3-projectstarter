@@ -1,0 +1,13 @@
+---
+- name: Copy files from backend
+  become: true
+  copy:
+    src: ~/project/backend/
+    dest: /home/ubuntu/backend/
+
+- name: Start PM2
+  shell: |
+    cd /home/ubuntu/backend/
+    sudo npm install
+    sudo npm build
+    sudo pm2 start npm -- run "start"
