@@ -114,7 +114,7 @@ jobs:
           name: Backend test
           command: |    
             cd backend
-            #npm i
+            npm i
             npm run test
       - save_cache:
           paths: [backend/node_modules]
