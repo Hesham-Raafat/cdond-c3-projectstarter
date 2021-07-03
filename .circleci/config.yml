@@ -45,8 +45,6 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - restore_cache:
-          keys: [frontend-build]
       - run:
           name: Build front-end
           command: |
@@ -63,14 +61,12 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - restore_cache:
-          keys: [backend-build]
       - run:
           name: Back-end build
           command: |
             # Your code here
             cd backend
-            npm install typescript -g
+            #npm install typescript -g
             npm run build
             #exit 1
       - save_cache:
