@@ -364,7 +364,7 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            yum install -y curl
+            #yum install -y curl
       - run:
           name: Get backend url
           command: |
@@ -412,7 +412,7 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            yum install -y curl            
+            #yum install -y curl            
       - run:
           name: Update cloudfront distribution
           command: |
