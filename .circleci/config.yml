@@ -210,7 +210,6 @@ jobs:
           paths:
             - project/.circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure      
-      - aws-cli/setup
       - destroy-environment
       
   configure-infrastructure:
@@ -230,7 +229,7 @@ jobs:
           name: Install dependencies
           command: |
             # Your code here
-            apk add --update ansible
+            apk add --update ansible curl
             #exit 1
       - run:
           name: Configure server
@@ -240,8 +239,8 @@ jobs:
             #exit 1
 
        # Here's where you will add some code to rollback on failure      
-      #- aws-cli/setup
-      #- destroy-environment
+      - aws-cli/setup
+      - destroy-environment
      
   run-migrations:
     docker:
