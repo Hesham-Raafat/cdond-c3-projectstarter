@@ -257,6 +257,7 @@ jobs:
             # Your code here
             cd backend
             npm i
+            touch output.txt
             npm run migrations > output.txt
             cat output.txt
             #exit 1
@@ -330,7 +331,7 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            apk add --update ansible curl           
+            apk add --update ansible          
       - run:
           name: Deploy backend
           command: |
