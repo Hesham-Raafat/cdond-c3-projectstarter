@@ -229,7 +229,7 @@ jobs:
           name: Install dependencies
           command: |
             # Your code here
-            apk add --update ansible curl
+            apk add --update ansible
             #exit 1
       - run:
           name: Configure server
@@ -239,8 +239,8 @@ jobs:
             #exit 1
 
        # Here's where you will add some code to rollback on failure      
-      - aws-cli/setup
-      - destroy-environment
+      #- aws-cli/setup
+      #- destroy-environment
      
   run-migrations:
     docker:
