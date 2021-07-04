@@ -296,6 +296,7 @@ jobs:
           command: |
             # your code here
             BACKEND_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text)
             export API_URL="http://${BACKEND_IP}:3030"
@@ -305,9 +306,7 @@ jobs:
           name: Deploy frontend objects
           command: |
             # your code here
-            #export API_URL=$(curl -s -H "token: 8620d9d0-12e7-475d-ae39-5954fc3fc3ac" --request GET https://api.memstash.io/values/API_URL)
             cd frontend
-            #echo "${API_URL}"
             npm i
             npm run build
             aws s3 cp --recursive ./dist s3://udapeople-${CIRCLE_WORKFLOW_ID}/
@@ -356,10 +355,11 @@ jobs:
   smoke-test:
     docker:
       # Lightweight Docker image
-      - image: amazon/aws-cli 
+      - image: circleci/node:13.8.0 
     steps:
       # Checkout code from git
       - checkout
+      - aws-cli/setup
       - run:
           name: Install dependencies
           command: |
@@ -370,6 +370,7 @@ jobs:
           command: |
             # your code here
             BACKEND_IP=$(aws ec2 describe-instances \
+              --filters "Name=tag:Name,Values=backend-${CIRCLE_WORKFLOW_ID}" \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text)
             curl -H "Content-Type: text/plain" -H "token: 8620d9d0-12e7-475d-ae39-5954fc3fc3ac" --request PUT --data "http://${BACKEND_IP}:3030/api/status" https://api.memstash.io/values/API_URL
@@ -378,7 +379,6 @@ jobs:
           command: |
             # your code here
             API_URL=$(curl -s -H "token: 8620d9d0-12e7-475d-ae39-5954fc3fc3ac" --request GET https://api.memstash.io/values/API_URL)
-            echo $BACKEND_IP
             if curl -s ${API_URL} | grep "ok"
             then
               exit 0
@@ -403,10 +403,11 @@ jobs:
   cloudfront-update:
     docker:
       # Docker image here that supports AWS CLI
-      - image: amazon/aws-cli
+      - image: circleci/node:13.8.0
     steps:
       # Checkout code from git
       - checkout
+      - aws-cli/setup
       - run:
           name: Install dependencies
           command: |
