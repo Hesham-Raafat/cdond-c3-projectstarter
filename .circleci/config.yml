@@ -256,6 +256,7 @@ jobs:
             cd backend
             npm i
             npm run migrations > output.txt
+            cat output.txt
             #exit 1
       - run:
           name: Send migration results to memstash
