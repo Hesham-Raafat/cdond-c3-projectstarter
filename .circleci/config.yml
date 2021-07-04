@@ -302,6 +302,7 @@ jobs:
             #export API_URL=$(curl -s -H "token: 8620d9d0-12e7-475d-ae39-5954fc3fc3ac" --request GET https://api.memstash.io/values/API_URL)
             cd frontend
             #echo "${API_URL}"
+            npm i
             npm run build
             aws s3 cp --recursive ./dist s3://udapeople-${CIRCLE_WORKFLOW_ID}/
       # Here's where you will add some code to rollback on failure      
@@ -343,8 +344,8 @@ jobs:
             echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> "backend/.env"
             ansible-playbook -i ~/project/.circleci/ansible/inventory.txt ~/project/.circleci/ansible/deploy-backend.yml            
       # Here's where you will add some code to rollback on failure  
-      - aws-cli/setup
-      - destroy-environment
+      #- aws-cli/setup
+      #- destroy-environment
       
   smoke-test:
     docker:
