@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  aws-cli: circleci/aws-cli@2.0
+  aws-cli: circleci/aws-cli@1.4.1
 
 commands:
   destroy-environment:
@@ -229,7 +229,7 @@ jobs:
           name: Install dependencies
           command: |
             # Your code here
-            apk add --update ansible curl jq
+            apk add --update ansible curl
             #exit 1
       - run:
           name: Configure server
