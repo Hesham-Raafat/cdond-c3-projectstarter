@@ -229,7 +229,7 @@ jobs:
           name: Install dependencies
           command: |
             # Your code here
-            apk add --update ansible curl
+            apk add --update ansible curl jq
             #exit 1
       - run:
           name: Configure server
