@@ -301,12 +301,12 @@ jobs:
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text)
             export API_URL="http://${BACKEND_IP}:3030"
-            echo "${API_URL}"
             curl -H "Content-Type: text/plain" -H "token: 8620d9d0-12e7-475d-ae39-5954fc3fc3ac" --request PUT --data "${API_URL}" https://api.memstash.io/values/API_URL
       - run:
           name: Deploy frontend objects
           command: |
             # your code here
+            export API_URL=$(curl -s -H "token: 8620d9d0-12e7-475d-ae39-5954fc3fc3ac" --request GET https://api.memstash.io/values/API_URL)
             cd frontend
             npm i
             npm run build
